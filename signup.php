@@ -8,17 +8,98 @@
   	<script type="text/javascript" src="bootstrap-4.4.1/js/bootstrap.min.js"></script>
 </head>
 <style type="text/css">
-	#main_content{
-		padding: 50px;
-		background-color: whitesmoke;
-	}
-	#side_bar{
-		background-color: whitesmoke;
-		padding: 50px;
-		width: 300px;
-		height: 450px;
-	}
-</style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden;
+            background-image: url('bg1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        #main_content {
+            padding: 50px;
+            background-color: transparent; /* Semi-transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        #side_bar {
+            background-color: transparent;
+            padding: 50px;
+            width: 300px;
+            height: 450px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        #side_bar h5 {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        #side_bar ul {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        #side_bar ul li {
+            margin-bottom: 10px;
+        }
+
+        marquee {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .navbar {
+            background-color: black !important;
+        }
+
+        .navbar .nav-link, .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .navbar .nav-link:hover {
+            color: #ccc !important;
+        }
+
+        #main_content h3 {
+            font-size: 2.5rem;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    </style>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
@@ -28,13 +109,16 @@
 	
 		    <ul class="nav navbar-nav navbar-right">
 		      <li class="nav-item">
-		        <a class="nav-link" href="index.php">Admin Login</a>
+		        <a class="nav-link" href="admin/index.php">Admin Login</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="#"></span>Register</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="index.php">Login</a>
+		      </li>
+			  <li class="nav-item">
+			  	<a class="nav-link" href="team.php">Team</a>
 		      </li>
 		    </ul>
 		</div>
@@ -59,7 +143,7 @@
 			</ul>
 		</div>
 		<div class="col-md-8" id="main_content">
-			<center><h3><u>User Registration Form</u></h3></center>
+			<center><h3>User Registration Form</h3></center>
 			<form action="register.php" method="post">
 				<div class="form-group">
 					<label for="name">Full Name:</label>
@@ -85,5 +169,11 @@
 			</form>
 		</div>
 	</div>
+	<footer>
+        <p>Created with 💗 by 
+            <a href="https://github.com/harishy0406/LMS" target="_blank">Harish Gautham</a>
+        </p>
+    </footer>
+
 </body>
 </html>

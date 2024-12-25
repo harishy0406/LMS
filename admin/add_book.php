@@ -29,6 +29,58 @@
   			window.location.href = "admin_dashboard.php";
   		}
   	</script>
+	<style type="text/css">
+		body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden;
+            background-image: url('bg3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+		marquee {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+		.navbar {
+            background-color: black!important;
+        }
+
+        .navbar .nav-link, .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .navbar .nav-link:hover {
+            color: #ccc !important;
+        }
+		.form-label {
+        font-size: 1.5rem; 
+        color:white; 
+        font-weight: bold; 
+		}
+
+		.btn-primary {
+			font-size: 1.2rem;
+			font-weight: bold;
+			background-color: green;
+			color: white;
+			border: none;
+			padding: 10px 20px;
+		}
+
+		.btn-primary:hover {
+			background-color: darkgreen;
+		}
+	</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -93,46 +145,56 @@
 		</div>
 	</nav><br>
 	<span><marquee>This is library mangement system. Library opens at 8:00 AM and close at 8:00 PM</marquee></span><br><br>
-		<center><h4>Add a new Book</h4><br></center>
+		<center><h4 style="font-size: 2rem; color:rgb(250, 250, 250);font-weight: bold;">Add a new Book</h4><br></center>
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<form action="" method="post">
-					<div class="form-group">
-						<label for="email">Book Name:</label>
-						<input type="text" name="book_name" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label for="mobile">Author ID:</label>
-						<input type="text" name="book_author" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label for="mobile">Category ID:</label>
-						<input type="text" name="book_category" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label for="mobile">Book Number:</label>
-						<input type="text" name="book_no" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label for="mobile">Book Price:</label>
-						<input type="text" name="book_price" class="form-control" required>
-					</div>
+			<form action="" method="post">
+				<div class="form-group">
+					<label for="email" class="form-label">Book Name:</label>
+					<input type="text" name="book_name" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="mobile" class="form-label">Author ID:</label>
+					<input type="text" name="book_author" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="mobile" class="form-label">Category ID:</label>
+					<input type="text" name="book_category" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="mobile" class="form-label">Book Number:</label>
+					<input type="text" name="book_no" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="mobile" class="form-label">Book Price:</label>
+					<input type="text" name="book_price" class="form-control" required>
+				</div>
+				<div class="d-flex justify-content-between">
 					<button type="submit" name="add_book" class="btn btn-primary">Add Book</button>
-				</form>
+					<a href="admin_dashboard.php" class="btn btn-primary">Back</a>
+				</div>
+			</form>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
+		
 </body>
 </html>
 
 <?php
-	if(isset($_POST['add_book']))
-	{
-		$connection = mysqli_connect("localhost","root","");
-		$db = mysqli_select_db($connection,"lms");
-		$query = "insert into books values(null,'$_POST[book_name]','$_POST[book_author]','$_POST[book_category]',$_POST[book_no],$_POST[book_price])";
-		$query_run = mysqli_query($connection,$query);
-		#header("location:add_book.php");
+	if (isset($_POST['add_book'])) {
+		$connection = mysqli_connect("localhost", "root", "");
+		$db = mysqli_select_db($connection, "lms");
+	
+		$query = "INSERT INTO books VALUES (NULL, '$_POST[book_name]', '$_POST[book_author]', '$_POST[book_category]', '$_POST[book_no]', '$_POST[book_price]')";
+		$query_run = mysqli_query($connection, $query);
+	
+		if ($query_run) {
+			echo "<script>alert('Book added successfully...'); window.location.href = 'admin_dashboard.php';</script>";
+		} else {
+			echo "<script>alert('Error adding book. Please try again.');</script>";
+		}
 	}
+	
 ?>

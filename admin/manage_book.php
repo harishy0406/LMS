@@ -29,6 +29,112 @@
   			window.location.href = "admin_dashboard.php";
   		}
   	</script>
+	<style type="text/css">
+		body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden;
+            background-image: url('bg3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+		marquee {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+		.navbar {
+            background-color: black!important;
+        }
+
+        .navbar .nav-link, .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .navbar .nav-link:hover {
+            color: #ccc !important;
+        }
+
+		footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+		.btn {
+			padding: 10px 15px;
+			font-size: 1rem;
+			font-weight: bold;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+		}
+
+		.btn-edit {
+			background-color: #4CAF50; /* Green */
+			color: white;
+			border: 1px solid #388E3C;
+		}
+
+		.btn-edit:hover {
+			background-color: #45a049;
+			border-color: #2E7D32;
+		}
+
+		.btn-delete {
+			background-color: #f44336; /* Red */
+			color: white;
+			border: 1px solid #D32F2F;
+		}
+
+		.btn-delete:hover {
+			background-color: #e53935;
+			border-color: #B71C1C;
+		}
+
+		.btn a {
+			text-decoration: none;
+			color: inherit; /* Inherit button text color */
+		}
+
+		.btn a:hover {
+			text-decoration: underline;
+		}
+
+		td {
+			text-align: center; /* Center align the buttons in the cell */
+			vertical-align: middle;
+		}
+		.btn-primary {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            background-color: green;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: darkgreen;
+        }
+
+	</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -93,11 +199,11 @@
 		</div>
 	</nav><br>
 	<span><marquee>This is library mangement system. Library opens at 8:00 AM and close at 8:00 PM</marquee></span><br><br>
-		<center><h4>Manage Books</h4><br></center>
+		<center><h4 style="font-size: 2rem; color:rgb(250, 250, 250);font-weight: bold;">Manage Books</h4><br></center>
 		<div class="row">
-			<div class="col-md-2"></div>
+			<div class="col-md-3"></div>
 			<div class="col-md-8">
-				<table class="table table-bordered table-hover">
+				<table class="table-bordered" width="900px" style="text-align: center ; font-size: 1.2rem; color:rgb(255, 255, 255); border: 2px solidrgb(255, 255, 255);">
 					<thead>
 						<tr>
 							<th>Name</th>
@@ -121,15 +227,29 @@
 								<td><?php echo $row['cat_id'];?></td>
 								<td><?php echo $row['book_no'];?></td>
 								<td><?php echo $row['book_price'];?></td>
-								<td><button class="btn" name=""><a href="edit_book.php?bn=<?php echo $row['book_no'];?>">Edit</a></button>
-								<button class="btn"><a href="delete_book.php?bn=<?php echo $row['book_no'];?>">Delete</a></button></td>
+								<td>
+									<button class="btn btn-edit">
+										<a href="edit_book.php?bn=<?php echo $row['book_no']; ?>">Edit</a>
+									</button>
+									<button class="btn btn-delete">
+										<a href="delete_book.php?bn=<?php echo $row['book_no']; ?>">Delete</a>
+									</button>
+								</td>
+
 							</tr>
 							<?php
 						}
 					?>
 				</table>
+				<br>
+				<a href="admin_dashboard.php" class="btn btn-primary">Back</a>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
+		<footer>
+        <p>Created with 💗 by 
+            <a href="https://github.com/harishy0406/LMS" target="_blank">Harish Gautham</a>
+        </p>
+    </footer>
 </body>
 </html>
