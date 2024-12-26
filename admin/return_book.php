@@ -1,29 +1,16 @@
 <?php
-	require("functions.php");
 	session_start();
-	#fetch data from database
-	$connection = mysqli_connect("localhost","root","");
-	$db = mysqli_select_db($connection,"lms");
-	$name = "";
-	$email = "";
-	$mobile = "";
-	$query = "select * from admins where email = '$_SESSION[email]'";
-	$query_run = mysqli_query($connection,$query);
-	while ($row = mysqli_fetch_assoc($query_run)){
-		$name = $row['name'];
-		$email = $row['email'];
-		$mobile = $row['mobile'];
-	}
+	ob_start(); // Start output buffering
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Manage Author</title>
+	<title>Return Book</title>
 	<meta charset="utf-8" name="viewport" content="width=device-width,intial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/css/bootstrap.min.css">
   	<script type="text/javascript" src="../bootstrap-4.4.1/js/juqery_latest.js"></script>
   	<script type="text/javascript" src="../bootstrap-4.4.1/js/bootstrap.min.js"></script>
-	  <style type="text/css">
+	<style type="text/css">
 		body {
             margin: 0;
             padding: 0;
@@ -36,7 +23,7 @@
             background-attachment: fixed;
         }
 		.navbar {
-            background-color: black!important;
+            background-color: black !important;
         }
 
         .navbar .nav-link, .navbar-brand {
@@ -65,61 +52,33 @@
             text-decoration: none;
             font-weight: bold;
         }
-		.btn {
-			padding: 10px 15px;
-			font-size: 1rem;
-			font-weight: bold;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			transition: all 0.3s ease-in-out;
-		}
+		.form-label {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: White;
+    }
+	.btn-custom {
+        font-size: 1.2rem;
+        font-weight: bold;
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+    }
 
-		.btn-edit {
-			background-color: #4CAF50; /* Green */
-			color: white;
-			border: 1px solid #388E3C;
-		}
+    .btn-custom:hover {
+        background-color: darkgreen;
+    }
 
-		.btn-edit:hover {
-			background-color: #45a049;
-			border-color: #2E7D32;
-		}
-
-		.btn-delete {
-			background-color: #f44336; /* Red */
-			color: white;
-			border: 1px solid #D32F2F;
-		}
-
-		.btn-delete:hover {
-			background-color: #e53935;
-			border-color: #B71C1C;
-		}
-
-		.btn a {
-			text-decoration: none;
-			color: inherit; /* Inherit button text color */
-		}
-
-		.btn a:hover {
-			text-decoration: underline;
-		}
-
-		td {
-			text-align: center; /* Center align the buttons in the cell */
-			vertical-align: middle;
-		}
-		.btn-primary {
-            font-size: 1.2rem;
-            padding: 10px 20px;
-            background-color: green;
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: darkgreen;
-        }
-
+    .success-message {
+        background-color: #28a745;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        text-align: center;
+    }
 	</style>
 </head>
 <body>
@@ -149,7 +108,6 @@
 	</nav><br>
 	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd">
 		<div class="container-fluid">
-			
 		    <ul class="nav navbar-nav navbar-center">
 		      <li class="nav-item">
 		        <a class="nav-link" href="admin_dashboard.php">Dashboard</a>
@@ -181,51 +139,40 @@
 	          <li class="nav-item">
 		        <a class="nav-link" href="issue_book.php">Issue Book</a>
 		      </li>
-			  <li class="nav-item">
+	          <li class="nav-item">
 		        <a class="nav-link" href="return_book.php">Return Book</a>
 		      </li>
 		    </ul>
 		</div>
 	</nav><br>
-	<span><marquee>This is library mangement system. Library opens at 8:00 AM and close at 8:00 PM</marquee></span><br><br>
-		<center><h4 style="font-size: 2rem; color:rgb(250, 250, 250);font-weight: bold;">Manage Author</h4><br></center>
+		<center><h4 style="font-size: 2.2rem; color:rgb(250, 250, 250);font-weight: bold;">Return Book</h4><br></center>
 		<div class="row">
-			<div class="col-md-3"></div>
-			<div class="col-md-8">
-				<table class="table-bordered" width="900px" style="text-align: center ; font-size: 1.2rem; color:rgb(255, 255, 255); border: 2px solidrgb(255, 255, 255);">
-					<thead>
-						<tr>
-							<th>Author ID</th>
-							<th>Name</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<?php
-						$connection = mysqli_connect("localhost","root","");
-						$db = mysqli_select_db($connection,"lms");
-						$query = "select * from authors";
-						$query_run = mysqli_query($connection,$query);
-						while ($row = mysqli_fetch_assoc($query_run)){
-							?>
-							<tr>
-								<td><?php echo $row['author_id'];?></td>
-								<td><?php echo $row['author_name'];?></td>
-								<td>
-									<button class="btn btn-edit">
-										<a href="edit_author.php?aid=<?php echo $row['author_id']; ?>">Edit</a>
-									</button>
-									<button class="btn btn-delete">
-										<a href="delete_author.php?aid=<?php echo $row['author_id']; ?>">Delete</a>
-									</button>
-								</td>
-
-							</tr>
-							<?php
-						}
-					?>
-				</table>
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<?php if (isset($_SESSION['success_message'])) { ?>
+					<div class="success-message">
+						<?php 
+							echo $_SESSION['success_message']; 
+							unset($_SESSION['success_message']);
+						?>
+					</div>
+				<?php } ?>
+				<form action="" method="post">
+					<div class="form-group">
+						<label for="book_no" class="form-label">Book Number:</label>
+						<input type="text" name="book_no" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label for="student_id" class="form-label">Student ID:</label>
+						<input type="text" name="student_id" class="form-control" required>
+					</div>
+					<div class="d-flex justify-content-between">
+						<button type="submit" name="return_book" class="btn btn-primary">Return Book</button>
+						<a href="admin_dashboard.php" class="btn btn-custom">Back</a>
+           			</div>
+				</form>
 			</div>
-			<div class="col-md-2"></div>
+			<div class="col-md-4"></div>
 		</div>
 		<footer>
         <p>Created with 💗 by 
@@ -235,3 +182,16 @@
 </body>
 </html>
 
+<?php
+	if(isset($_POST['return_book']))
+	{
+		$connection = mysqli_connect("localhost","root","");
+		$db = mysqli_select_db($connection,"lms");
+		$query = "delete from issued_books where book_no = '$_POST[book_no]' and student_id = '$_POST[student_id]'";
+		$query_run = mysqli_query($connection,$query);
+		$_SESSION['success_message'] = "Book returned successfully!";
+		header("Location: return_book.php");
+		exit();
+	}
+	ob_end_flush(); // End output buffering
+?>

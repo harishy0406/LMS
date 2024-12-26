@@ -116,7 +116,7 @@ ob_start();
         
             <ul class="nav navbar-nav navbar-right">
               <li class="nav-item">
-                <a class="nav-link" href="index.php">Admin Login</a>
+                <a class="nav-link" href="index.php">Admin</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="../signup.php">Register</a>
@@ -125,8 +125,8 @@ ob_start();
                 <a class="nav-link" href="../index.php">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="team.php">Team</a>
-              </li>
+                    <a class="nav-link" href="../team.php">Team</a>
+            </li>
             </ul>
         </div>
     </nav><br>

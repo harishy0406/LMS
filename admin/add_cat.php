@@ -156,6 +156,9 @@
 	          <li class="nav-item">
 		        <a class="nav-link" href="issue_book.php">Issue Book</a>
 		      </li>
+			  <li class="nav-item">
+		        <a class="nav-link" href="return_book.php">Return Book</a>
+		      </li>
 		    </ul>
 		</div>
 	</nav><br>

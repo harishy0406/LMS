@@ -23,7 +23,7 @@
 	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/css/bootstrap.min.css">
   	<script type="text/javascript" src="../bootstrap-4.4.1/js/juqery_latest.js"></script>
   	<script type="text/javascript" src="../bootstrap-4.4.1/js/bootstrap.min.js"></script>
-	  <style type="text/css">
+	<style type="text/css">
 		body {
             margin: 0;
             padding: 0;
@@ -180,6 +180,9 @@
 		      </li>
 	          <li class="nav-item">
 		        <a class="nav-link" href="issue_book.php">Issue Book</a>
+		      </li>
+			  <li class="nav-item">
+		        <a class="nav-link" href="return_book.php">Return Book</a>
 		      </li>
 		    </ul>
 		</div>

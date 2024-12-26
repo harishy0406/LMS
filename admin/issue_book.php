@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	ob_start(); // Start output buffering
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,12 +10,76 @@
 	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/css/bootstrap.min.css">
   	<script type="text/javascript" src="../bootstrap-4.4.1/js/juqery_latest.js"></script>
   	<script type="text/javascript" src="../bootstrap-4.4.1/js/bootstrap.min.js"></script>
-  	<script type="text/javascript">
-  		function alertMsg(){
-  			alert(Book added successfully...);
-  			window.location.href = "admin_dashboard.php";
-  		}
-  	</script>
+	<style type="text/css">
+		body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden;
+            background-image: url('bg3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+		.navbar {
+            background-color: black !important;
+        }
+
+        .navbar .nav-link, .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .navbar .nav-link:hover {
+            color: #ccc !important;
+        }
+
+		footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+		.form-label {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: White;
+    }
+	.btn-custom {
+        font-size: 1.2rem;
+        font-weight: bold;
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+    }
+
+    .btn-custom:hover {
+        background-color: darkgreen;
+    }
+
+    .success-message {
+        background-color: #28a745;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+	</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -43,7 +108,6 @@
 	</nav><br>
 	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd">
 		<div class="container-fluid">
-			
 		    <ul class="nav navbar-nav navbar-center">
 		      <li class="nav-item">
 		        <a class="nav-link" href="admin_dashboard.php">Dashboard</a>
@@ -75,21 +139,31 @@
 	          <li class="nav-item">
 		        <a class="nav-link" href="issue_book.php">Issue Book</a>
 		      </li>
+			  <li class="nav-item">
+		        <a class="nav-link" href="return_book.php">Return Book</a>
+		      </li>
 		    </ul>
 		</div>
 	</nav><br>
-	<span><marquee>This is library mangement system. Library opens at 8:00 AM and close at 8:00 PM</marquee></span><br><br>
-		<center><h4>Issue Book</h4><br></center>
+		<center><h4 style="font-size: 2.2rem; color:rgb(250, 250, 250);font-weight: bold;">Issue Book</h4><br></center>
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
+				<?php if (isset($_SESSION['success_message'])) { ?>
+					<div class="success-message">
+						<?php 
+							echo $_SESSION['success_message']; 
+							unset($_SESSION['success_message']);
+						?>
+					</div>
+				<?php } ?>
 				<form action="" method="post">
 					<div class="form-group">
-						<label for="book_name">Book Name:</label>
+						<label for="book_name" class="form-label">Book Name:</label>
 						<input type="text" name="book_name" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label for="book_author">Author ID:</label>
+						<label for="book_author" class="form-label">Author ID:</label>
 						<select class="form-control" name="book_author">
 							<option>-Select author-</option>
 							<?php  
@@ -104,25 +178,32 @@
 								}
 							?>
 						</select>
-						<!--<input type="text" name="book_author" class="form-control" required> -->
 					</div>
 					<div class="form-group">
-						<label for="book_no">Book Number:</label>
+						<label for="book_no" class="form-label">Book Number:</label>
 						<input type="text" name="book_no" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label for="student_id">Student ID:</label>
+						<label for="student_id" class="form-label">Student ID:</label>
 						<input type="text" name="student_id" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label for="issue_date">Issue Date:</label>
+						<label for="issue_date" class="form-label">Issue Date:</label>
 						<input type="text" name="issue_date" class="form-control" value="<?php echo date("yy-m-d");?>" required>
 					</div>
-					<button type="submit" name="issue_book" class="btn btn-primary">Issue Book</button>
+					<div class="d-flex justify-content-between">
+						<button type="submit" name="issue_book" class="btn btn-primary">Issue Book</button>
+						<a href="admin_dashboard.php" class="btn btn-custom">Back</a>
+           			</div>
 				</form>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
+		<footer>
+        <p>Created with 💗 by 
+            <a href="https://github.com/harishy0406/LMS" target="_blank">Harish Gautham</a>
+        </p>
+    </footer>
 </body>
 </html>
 
@@ -133,6 +214,9 @@
 		$db = mysqli_select_db($connection,"lms");
 		$query = "insert into issued_books values(null,$_POST[book_no],'$_POST[book_name]','$_POST[book_author]',$_POST[student_id],1,'$_POST[issue_date]')";
 		$query_run = mysqli_query($connection,$query);
-		#header("Location:admin_dashboard.php");
+		$_SESSION['success_message'] = "Book issued successfully!";
+		header("Location: issue_book.php");
+		exit();
 	}
+	ob_end_flush(); // End output buffering
 ?>
