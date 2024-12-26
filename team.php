@@ -107,7 +107,7 @@
                     <div class="team-member-details">
                         <input type="text" value="Name: Velan" disabled>
                         <input type="text" value="RegNo: 21MIS" disabled>
-                        <input type="text" value="Contact: 9876543212" disabled>
+                        <input type="text" value="Contact: 987654321" disabled>
                     </div>
                 </div>
             </div>
